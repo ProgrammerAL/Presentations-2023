@@ -9,11 +9,10 @@ using Microsoft.Extensions.Hosting;
 
 using OpenTelemetry.Trace;
 
+using ProgrammerAl.Presentations.OTel.Shared;
 using ProgrammerAl.Presentations.OTel.Shared.EF;
 using ProgrammerAl.Presentations.OTel.UsersService.EF;
 using ProgrammerAl.Presentations.OTel.UsersService.EF.Repositories;
-
-using PurpleSpikeProductions.Api.Shared.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 

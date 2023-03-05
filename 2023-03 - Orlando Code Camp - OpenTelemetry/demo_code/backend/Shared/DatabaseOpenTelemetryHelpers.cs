@@ -2,7 +2,7 @@
 
 using System.Text.RegularExpressions;
 
-namespace PurpleSpikeProductions.Api.Shared.Helpers;
+namespace ProgrammerAl.Presentations.OTel.Shared;
 
 public static partial class DatabaseOpenTelemetryHelpers
 {
