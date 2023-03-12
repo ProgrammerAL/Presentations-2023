@@ -18,7 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 //TODO: Load these values from config
 var dbConnectionString = "";
-var databaseName = "";
+var databaseName = "otel-demo";
 var honeycombApiKey = "";
 
 if (string.IsNullOrEmpty(dbConnectionString)

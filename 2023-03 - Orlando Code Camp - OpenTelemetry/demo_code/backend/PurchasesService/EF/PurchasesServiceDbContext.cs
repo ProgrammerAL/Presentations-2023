@@ -9,19 +9,16 @@ using System.Text;
 using System.Threading.Tasks;
 
 using ProgrammerAl.Presentations.OTel.PurchasesService.EF.Entities;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace ProgrammerAl.Presentations.OTel.PurchasesService.EF;
 
 public class PurchasesServiceDbContext : DbContext
 {
-    //public static readonly ImmutableArray<Microsoft.Extensions.Logging.EventId> LoggingEventIds = new[]
-    //{
-    //    CosmosEventId.ExecutedReadItem,
-    //    CosmosEventId.ExecutedReadNext,
-    //    CosmosEventId.ExecutedCreateItem,
-    //    CosmosEventId.ExecutedReplaceItem,
-    //    CosmosEventId.ExecutedDeleteItem
-    //}.ToImmutableArray();
+    public static readonly ImmutableArray<Microsoft.Extensions.Logging.EventId> LoggingEventIds = new[]
+    {
+        RelationalEventId.CommandExecuted,
+    }.ToImmutableArray();
 
     [NotNull]
     public DbSet<PurchaseEntity>? Purchases { get; private set; }

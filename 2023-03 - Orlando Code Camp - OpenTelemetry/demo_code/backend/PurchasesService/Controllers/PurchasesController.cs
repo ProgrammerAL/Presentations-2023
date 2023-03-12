@@ -18,6 +18,10 @@ public class PurchasesController : ControllerBase
     [HttpPost("create")]
     public async Task<ActionResult> CreatePurchaseAsync([FromBody] CreatePurchaseRequest? request)
     {
+        var headers = this.ControllerContext.HttpContext.Request.Headers;
+        var traceParent = headers["traceparent"];
+        await Console.Out.WriteLineAsync(traceParent);
+
         if (request is null)
         {
             return BadRequest();
@@ -28,7 +32,7 @@ public class PurchasesController : ControllerBase
     }
 
     [HttpPost("get-user-purchases/{userId}")]
-    public async Task<ActionResult> GEtPurchaseAsync([FromRoute] string? userId)
+    public async Task<ActionResult> GetPurchaseAsync([FromRoute] string? userId)
     {
         if (string.IsNullOrWhiteSpace(userId))
         {

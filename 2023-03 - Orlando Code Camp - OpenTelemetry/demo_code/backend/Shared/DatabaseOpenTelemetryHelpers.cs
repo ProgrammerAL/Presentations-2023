@@ -1,4 +1,5 @@
 ﻿using OpenTelemetry.Trace;
+
 using System;
 using System.Text.RegularExpressions;
 
@@ -8,7 +9,7 @@ public static partial class DatabaseOpenTelemetryHelpers
 {
     public static void TraceSqlServerExecutedQueryInfo(string message)
     {
-        Console.WriteLine(message);
+        _ = Tracer.CurrentSpan.SetAttribute("db.statement", message);
     }
 
     public static void TraceCosmosDbExecutedQueryInfo(string message)

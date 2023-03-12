@@ -43,7 +43,7 @@ builder.Services.AddPooledDbContextFactory<PurchasesServiceDbContext>((servicePr
     .UseSqlServer(dbConnectionString)
     .EnableServiceProviderCaching(cacheServiceProvider: true)
         .LogTo(DatabaseOpenTelemetryHelpers.TraceSqlServerExecutedQueryInfo,
-            //events: UsersServiceCosmosContext.LoggingEventIds,
+            events: PurchasesServiceDbContext.LoggingEventIds,
             minimumLevel: Microsoft.Extensions.Logging.LogLevel.Information)
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
@@ -77,12 +77,5 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
-
-//Make sure EF Migrations have been run -- For the Demo
-using (var scope = app.Services.CreateScope())
-{
-    using var db = scope.ServiceProvider.GetRequiredService<PurchasesServiceDbContext>();
-    await db.Database.MigrateAsync();
-}
 
 #pragma warning restore IDE0058 // Expression value is never used
