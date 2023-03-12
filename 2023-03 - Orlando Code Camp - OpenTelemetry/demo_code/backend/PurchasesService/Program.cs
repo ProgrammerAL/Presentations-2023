@@ -9,22 +9,20 @@ using Microsoft.Extensions.Hosting;
 
 using OpenTelemetry.Trace;
 
+using ProgrammerAl.Presentations.OTel.PurchasesService;
+using ProgrammerAl.Presentations.OTel.PurchasesService.EF;
+using ProgrammerAl.Presentations.OTel.PurchasesService.EF.Repositories;
 using ProgrammerAl.Presentations.OTel.Shared;
-using ProgrammerAl.Presentations.OTel.Shared.EF;
-using ProgrammerAl.Presentations.OTel.UsersService.EF;
-using ProgrammerAl.Presentations.OTel.UsersService.EF.Repositories;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 //TODO: Load these values from config
 var dbConnectionString = "";
-var databaseName = "";
 var honeycombApiKey = "";
 
 if (string.IsNullOrEmpty(dbConnectionString)
-    || string.IsNullOrEmpty(databaseName)
-    || string.IsNullOrEmpty(honeycombApiKey)
-    )
+    || string.IsNullOrEmpty(honeycombApiKey))
 {
     throw new Exception("Startup config not set");
 }
@@ -36,24 +34,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IUsersRepository, UsersRepository>();
+builder.Services.AddSingleton<IPurchasesRepository, PurchasesRepository>();
+builder.Services.AddSingleton<IProductsRepository, ProductsRepository>();
 
-builder.Services.AddSingleton<EfQueryRunner<UsersServiceCosmosContext>>();
-
-builder.Services.AddPooledDbContextFactory<UsersServiceCosmosContext>((serviceProvider, optionsBuilder) =>
+builder.Services.AddPooledDbContextFactory<PurchasesServiceDbContext>((serviceProvider, optionsBuilder) =>
 {
-
-    optionsBuilder.UseCosmos(dbConnectionString, databaseName, options =>
-    {
-        //Limit to the given endpoint to reduce calls made on startup for multiple locations
-        //  Also, we use a Serverless Cosmos DB, so there's only 1 location
-        options.LimitToEndpoint(true);
-
-        options.ConnectionMode(Microsoft.Azure.Cosmos.ConnectionMode.Direct);
-    })
-        .EnableServiceProviderCaching(cacheServiceProvider: true)
-        .LogTo(DatabaseOpenTelemetryHelpers.TraceCosmosDbExecutedQueryInfo,
-            events: UsersServiceCosmosContext.LoggingEventIds,
+    optionsBuilder
+    .UseSqlServer(dbConnectionString)
+    .EnableServiceProviderCaching(cacheServiceProvider: true)
+        .LogTo(DatabaseOpenTelemetryHelpers.TraceSqlServerExecutedQueryInfo,
+            //events: UsersServiceCosmosContext.LoggingEventIds,
             minimumLevel: Microsoft.Extensions.Logging.LogLevel.Information)
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
@@ -62,13 +52,14 @@ builder.Services.AddOpenTelemetry().WithTracing(otelBuilder =>
     otelBuilder
         .AddHoneycomb(new HoneycombOptions
         {
-            ServiceName = "users-service",
+            ServiceName = "purchases-service",
             ServiceVersion = "1.0.1-local",
             ApiKey = honeycombApiKey
         })
         .AddCommonInstrumentations()
+        .AddSource(ActivitySources.PurchasesServiceSource.Name)
 );
-builder.Services.AddSingleton(TracerProvider.Default.GetTracer("users-service"));
+
 
 var app = builder.Build();
 
@@ -86,5 +77,12 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+//Make sure EF Migrations have been run -- For the Demo
+using (var scope = app.Services.CreateScope())
+{
+    using var db = scope.ServiceProvider.GetRequiredService<PurchasesServiceDbContext>();
+    await db.Database.MigrateAsync();
+}
 
 #pragma warning restore IDE0058 // Expression value is never used
