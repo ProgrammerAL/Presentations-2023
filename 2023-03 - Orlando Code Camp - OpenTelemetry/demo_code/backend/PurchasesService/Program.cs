@@ -18,10 +18,10 @@ using ProgrammerAl.Presentations.OTel.Shared;
 var builder = WebApplication.CreateBuilder(args);
 
 //TODO: Load these values from config
-var dbConnectionString = "";
+var sqlDbConnectionString = "";
 var honeycombApiKey = "";
 
-if (string.IsNullOrEmpty(dbConnectionString)
+if (string.IsNullOrEmpty(sqlDbConnectionString)
     || string.IsNullOrEmpty(honeycombApiKey))
 {
     throw new Exception("Startup config not set");
@@ -40,7 +40,7 @@ builder.Services.AddSingleton<IProductsRepository, ProductsRepository>();
 builder.Services.AddPooledDbContextFactory<PurchasesServiceDbContext>((serviceProvider, optionsBuilder) =>
 {
     optionsBuilder
-    .UseSqlServer(dbConnectionString)
+    .UseSqlServer(sqlDbConnectionString)
     .EnableServiceProviderCaching(cacheServiceProvider: true)
         .LogTo(DatabaseOpenTelemetryHelpers.TraceSqlServerExecutedQueryInfo,
             events: PurchasesServiceDbContext.LoggingEventIds,

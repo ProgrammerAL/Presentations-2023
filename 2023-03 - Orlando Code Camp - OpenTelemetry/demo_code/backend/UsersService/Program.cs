@@ -17,11 +17,11 @@ using ProgrammerAl.Presentations.OTel.UsersService.EF.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 //TODO: Load these values from config
-var dbConnectionString = "";
 var databaseName = "otel-demo";
+var cosmosDbConnectionString = "";
 var honeycombApiKey = "";
 
-if (string.IsNullOrEmpty(dbConnectionString)
+if (string.IsNullOrEmpty(cosmosDbConnectionString)
     || string.IsNullOrEmpty(databaseName)
     || string.IsNullOrEmpty(honeycombApiKey)
     )
@@ -43,7 +43,7 @@ builder.Services.AddSingleton<EfQueryRunner<UsersServiceCosmosContext>>();
 builder.Services.AddPooledDbContextFactory<UsersServiceCosmosContext>((serviceProvider, optionsBuilder) =>
 {
 
-    optionsBuilder.UseCosmos(dbConnectionString, databaseName, options =>
+    optionsBuilder.UseCosmos(cosmosDbConnectionString, databaseName, options =>
     {
         //Limit to the given endpoint to reduce calls made on startup for multiple locations
         //  Also, we use a Serverless Cosmos DB, so there's only 1 location
