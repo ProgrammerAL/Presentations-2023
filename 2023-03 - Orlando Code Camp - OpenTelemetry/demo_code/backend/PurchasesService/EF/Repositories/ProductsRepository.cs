@@ -20,16 +20,17 @@ public class ProductsRepository : IProductsRepository
 
     public async ValueTask CreateProduct(string name)
     {
-        using var activity = ActivitySources.PurchasesServiceSource.StartActivity("CreateProduct");
-
         using var context = await _contextFactory.CreateDbContextAsync();
-        _ = await context.Products.AddAsync(new ProductEntity
+        using (var activity = ActivitySources.PurchasesServiceSource.StartActivity("CreateProduct"))
         {
-            CreatedUtc = DateTime.UtcNow,
-            Enabled = true,
-            Name = name
-        });
+            _ = await context.Products.AddAsync(new ProductEntity
+            {
+                CreatedUtc = DateTime.UtcNow,
+                Enabled = true,
+                Name = name
+            });
 
-        _ = await context.SaveChangesAsync();
+            _ = await context.SaveChangesAsync();
+        }
     }
 }
