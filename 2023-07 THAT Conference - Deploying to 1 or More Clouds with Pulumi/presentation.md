@@ -100,8 +100,8 @@ await Deployment.RunAsync(() =>
 
 # Demo 1 Time!
 
-- Pulumi CLI
 - Code
+- Pulumi CLI
 - Web Portal
 
 ---
@@ -123,4 +123,58 @@ await Deployment.RunAsync(() =>
 
 ---
 
+# Output Apply()
+
+- Raw Method
+  - `var url = vm.DnsName.Apply(dnsName => "https://" + dnsName);`
+- String Interpolation
+  - `var url = Output.Format($"http://{hostname}:{port}/");`
+
+---
+
+# Config
+
+- YAML Files
+- Per Stack
+
+---
+
+# Config Secrets
+
+- Encrypted in config
+- Per Stack
+- Loaded as an Output value
+- Plan-Text viewable via Pulumi CLI when signed in
+
+
+---
+
+# Stack Outputs
+
+- Set by 
+- Usable in `Pulumi.README.md` files
+
+---
+
+# Stack References
+
+- Access Stack Outputs from other stacks
+  - Same app or others
+
+
+---
+
+
+# Online Info
+
+- Al Rodriguez
+  - @ProgrammerAL
+  - https://programmeral.com/about
+
+- Session Materials
+  - https://github.com/ProgrammerAl/Presentations-2023
+  - TODO: Replace with link to personal site
+  - TODO: Include QR Code to personal site
+
+---
 
