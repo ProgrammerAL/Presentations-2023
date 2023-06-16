@@ -1,0 +1,9 @@
+config:
+  pulumi-demo:azure-resource-group-name: demo-rg
+  pulumi-demo:do-spaces-access-secret:
+    secure: AAABAASrKTgr+dBzmYoqk0jM+Rq1MtD5RaOqVwh6SqoR3gHbKp8BttmoebenK5t0M0iOTClOa/TqJgncPuSW+hXXcjrLAsi6ROgX
+  pulumi-demo:do-spackes-access-id: DO00GXQAVQ942Y8EER6X
+  pulumi-demo:do-token:
+    secure: AAABAC1o3IRLoP9vIDZ1lejh4L7wkmiMTnJMzW99vnmVXAx2pMUO/VXKouLml9U6VuI+b9xjJls4M73gxJcueqLKddztGvYs1fprVGwSBx5zOfBZNmfNHzOw6VgUJ2pXxVR3n6jK/Q==
+  pulumi-demo:location: EastUS
+  pulumi-demo:functions-package-path: abc
