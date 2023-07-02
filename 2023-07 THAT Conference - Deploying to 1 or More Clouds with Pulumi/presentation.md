@@ -1,5 +1,5 @@
 ---
-marp: true
+marp: false
 title: Deploying to 1 or More Clouds with Pulumi
 paginate: true
 theme: gaia
@@ -14,14 +14,10 @@ with Al Rodriguez
 
 # Online Info
 
-- Al Rodriguez
-  - @ProgrammerAL
-  - https://programmeral.com/about
+- @ProgrammerAL
+- https://programmeral.com
 
-- Session Materials
-  - https://github.com/ProgrammerAl/Presentations-2023
-  - TODO: Replace with link to personal site
-  - TODO: Include QR Code to personal site
+![bg right 80%](presentation-images/presentation_link_qrcode.svg)
 
 ---
 
@@ -32,6 +28,19 @@ with Al Rodriguez
   - Or you've heard about it but never looked into it
 - Uses C#, Azure, and DigitalOcean
   - But the concepts apply to other languages and clouds supported by Pulumi
+
+---
+
+# What is Pulumi?
+
+- Tooling for managing cloud infrastructure
+  - Create/Read/Update/Delete services
+  - IaC - Infrastructure as Code
+  - DSC - Desired State Configuration
+- Open Sourced
+  - _Can_ be free if you self host
+- Procedural and Imperative
+
 
 ---
 
@@ -54,18 +63,6 @@ await Deployment.RunAsync(() =>
   };
 });
 ```
-
----
-# What is Pulumi?
-
-- Tooling for managing cloud infrastructure
-  - Create/Read/Update/Delete services
-  - IaC - Infrastructure as Code
-  - DSC - Desired State Configuration
-- Open Sourced
-  - _Can_ be free if you self host
-- Procedural and Imperative
-
 
 ---
 
@@ -136,6 +133,8 @@ await Deployment.RunAsync(() =>
 
 - YAML Files
 - Per Stack
+- Individual Key-Value pairs
+  - Or objects
 
 ---
 
@@ -151,8 +150,10 @@ await Deployment.RunAsync(() =>
 
 # Stack Outputs
 
-- Set by 
-- Usable in `Pulumi.README.md` files
+- Set by You, your code
+- Usable in:
+  - Stack References
+  - `Pulumi.README.md` files
 
 ---
 
@@ -165,16 +166,18 @@ await Deployment.RunAsync(() =>
 ---
 
 
+# Demo 2 Time!
+
+- Code
+
+---
+
 # Online Info
 
-- Al Rodriguez
-  - @ProgrammerAL
-  - https://programmeral.com/about
+- @ProgrammerAL
+- https://programmeral.com
 
-- Session Materials
-  - https://github.com/ProgrammerAl/Presentations-2023
-  - TODO: Replace with link to personal site
-  - TODO: Include QR Code to personal site
+![bg right 80%](presentation-images/presentation_link_qrcode.svg)
 
 ---
 
