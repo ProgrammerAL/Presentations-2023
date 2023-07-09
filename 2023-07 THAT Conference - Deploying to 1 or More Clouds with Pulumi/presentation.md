@@ -8,14 +8,14 @@ author: Al Rodriguez
 
 # Deploying to 1 or More Clouds with Pulumi
 
-with Al Rodriguez
+with AL Rodriguez
 
 ---
 
 # Online Info
 
 - @ProgrammerAL
-- https://programmeral.com
+- https://programmerAL.com
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.svg)
 
@@ -192,9 +192,7 @@ await Deployment.RunAsync(() =>
 # Online Info
 
 - @ProgrammerAL
-- https://programmeral.com
+- https://programmerAL.com
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.svg)
-
----
 
