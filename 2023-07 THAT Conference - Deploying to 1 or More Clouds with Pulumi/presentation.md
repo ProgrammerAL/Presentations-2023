@@ -120,6 +120,21 @@ await Deployment.RunAsync(() =>
 
 ---
 
+# Example: Demo Application
+
+- Azure Function given reference to DigitalOcean Spaces resource endpoint
+  - It needs to know where to send data
+- Pulumi creates full DSC, THEN modifies infrastructure
+  - So it knows to create DigitalOcean Spaces resource, THEN Azure Functions resource
+  - But our code doesn't have to (directly) know about that dependency
+
+---
+
+#
+![bg contain](presentation-images/pulumi-state-flow.png)
+
+---
+
 # Output Apply()
 
 - Raw Method
@@ -168,7 +183,9 @@ await Deployment.RunAsync(() =>
 
 # Demo 2 Time!
 
-- Code
+- Pulumi Code
+- Demo App
+  - Azure Function receives REST request, puts body into file stored in DigitalOcean Spaces
 
 ---
 

@@ -39,7 +39,7 @@ public record AzureBuilder(
 
     private AzureResources.ServiceStorageInfra GenerateStorageInfrastructure()
     {
-        var storageAccount = new StorageAccount("funcs-storage", new StorageAccountArgs
+        var storageAccount = new StorageAccount("funcsstorage", new StorageAccountArgs
         {
             ResourceGroupName = ResourceGroup.Name,
             Sku = new AzureNative.Storage.Inputs.SkuArgs

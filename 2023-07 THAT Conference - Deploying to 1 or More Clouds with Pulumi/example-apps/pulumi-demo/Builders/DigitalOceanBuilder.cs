@@ -20,7 +20,7 @@ public record DigitalOceanBuilder(GlobalConfig GlobalConfig)
         var spacesProvider = GenerateSpacesProvider("do-public-spaces-bucket-provider", GlobalConfig.DigitalOceanConfig.SpacesAccessId, GlobalConfig.DigitalOceanConfig.SpacesAccessSecret);
 
         var bucketRegion = Region.NYC3;
-        var bucket = new SpacesBucket("public-data-bucket", new()
+        var bucket = new SpacesBucket("publicdatabucket", new()
         {
             Region = bucketRegion,
             CorsRules = new[]

@@ -11,7 +11,6 @@ namespace PulumiDemo.Config;
 
 public record AzureConfig(string Location, string ResourceGroupName, string FunctionsPackagePath);
 public record DigitalOceanConfig(
-    Output<string> Token,
     string SpacesAccessId,
     Output<string> SpacesAccessSecret);
 
@@ -24,15 +23,16 @@ public record GlobalConfig(
     {
         string location = config.Require("location");
         string resourceGroupName = config.Require("azure-resource-group-name");
+
+        //Note: Releative path from inside the ~/example-apps/pulumi-demo directory
         string functionsPackagePath = config.Require("functions-package-path");
 
-        var doToken = config.RequireSecret("do-token");
-        var doSpacesAccessId = config.Require("do-spackes-access-id");
+        var doSpacesAccessId = config.Require("do-spaces-access-id");
         var doSpacesAccessSecret = config.RequireSecret("do-spaces-access-secret");
 
         return new GlobalConfig(
             AzureConfig: new AzureConfig(location, resourceGroupName, functionsPackagePath),
-            DigitalOceanConfig: new DigitalOceanConfig(doToken, doSpacesAccessId, doSpacesAccessSecret)
+            DigitalOceanConfig: new DigitalOceanConfig(doSpacesAccessId, doSpacesAccessSecret)
             );
     }
 }

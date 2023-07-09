@@ -16,7 +16,10 @@ return await Pulumi.Deployment.RunAsync(() =>
     var pulumiConfig = new Config();
     var globalConfig = GlobalConfig.Load(pulumiConfig);
 
-    var resourceGroup = new ResourceGroup(globalConfig.AzureConfig.ResourceGroupName);
+    var resourceGroup = new ResourceGroup(globalConfig.AzureConfig.ResourceGroupName, new ResourceGroupArgs
+    { 
+        Location = globalConfig.AzureConfig.Location
+    });
 
     var doBuilder = new DigitalOceanBuilder(globalConfig);
     var doResources = doBuilder.Build();
