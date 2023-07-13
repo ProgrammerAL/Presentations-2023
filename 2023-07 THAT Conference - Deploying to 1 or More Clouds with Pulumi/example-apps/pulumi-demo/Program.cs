@@ -31,6 +31,7 @@ return await Pulumi.Deployment.RunAsync(() =>
     {
         { "PublicStorageEndpoint", doResources.BucketServiceUrl },
         { "FunctionHttpsEndpoint", azureResources.Function.HttpsEndpoint },
+        { "Readme", Output.Create(System.IO.File.ReadAllText("./Pulumi.README.md"))}
     };
 });
 

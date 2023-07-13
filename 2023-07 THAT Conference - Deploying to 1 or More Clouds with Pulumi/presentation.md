@@ -103,6 +103,15 @@ await Deployment.RunAsync(() =>
 
 ---
 
+# Pulumi Features Overview
+
+- Application Flow
+- Input/Outputs
+- Config
+- Stacks
+
+---
+
 #
 ![bg contain](presentation-images/pulumi-state-flow.png)
 
