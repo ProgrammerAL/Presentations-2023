@@ -6,11 +6,29 @@ theme: gaia
 author: Al Rodriguez
 ---
 
-# Deploying to 1 or More Clouds with Pulumi
+# Deploying Infrastructure to 1 or More Clouds with Pulumi
 
 with AL Rodriguez
 
+![bg contain](presentation-images/Simple_Footer.png)
+
 ---
+
+#
+![bg contain](presentation-images/Sponsors.png)
+
+---
+
+#
+![bg contain](presentation-images/Save_the_Date.png)
+
+---
+#
+![bg contain](presentation-images/Session_Survey_speaker.png)
+![bg contain](presentation-images/Survey_QR_Code.png)
+
+---
+
 
 # Online Info
 
@@ -37,32 +55,9 @@ with AL Rodriguez
   - Create/Read/Update/Delete services
   - IaC - Infrastructure as Code
   - DSC - Desired State Configuration
+- Procedural and Imperative
 - Open Sourced
   - _Can_ be free if you self host
-- Procedural and Imperative
-
-
----
-
-# Quick Example Code
-
-```csharp
-using System.Collections.Generic;
-using Pulumi;
-using Pulumi.Eks;
-
-await Deployment.RunAsync(() =>
-{
-  // Create an EKS cluster with default settings.
-  var cluster = new Cluster("eks-cluster");
-
-  // Export the cluster's kubeconfig.
-  return new Dictionary<string, object?>
-  {
-    ["kubeconfig"] = cluster.Kubeconfig
-  };
-});
-```
 
 ---
 
@@ -123,6 +118,7 @@ await Deployment.RunAsync(() =>
 - Inputs
   - Become Outputs
 - Outputs
+  - Mark a Dependency
   - Will have a value eventually...in the future
     - Ex: GUID id of a storage account
   - Used to modify a dependency in code
@@ -204,4 +200,5 @@ await Deployment.RunAsync(() =>
 - https://programmerAL.com
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.svg)
+![bg contain](presentation-images/Survey_QR_Code.png)
 
