@@ -5,6 +5,7 @@
 		<OutputType>Exe</OutputType>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<RootNamespace>ExampleFunctionApp</RootNamespace>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="AWSSDK.S3" Version="3.7.103.32" />

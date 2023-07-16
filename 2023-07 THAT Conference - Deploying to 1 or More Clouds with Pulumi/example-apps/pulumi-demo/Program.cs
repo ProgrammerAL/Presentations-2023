@@ -11,8 +11,10 @@ using PulumiDemo.Config;
 
 using System.Collections.Generic;
 
-return await Pulumi.Deployment.RunAsync(() =>
+return await Pulumi.Deployment.RunAsync(async () =>
 {
+    var clientConfig = await Pulumi.AzureNative.Authorization.GetClientConfig.InvokeAsync();
+
     var pulumiConfig = new Config();
     var globalConfig = GlobalConfig.Load(pulumiConfig);
 
@@ -24,7 +26,7 @@ return await Pulumi.Deployment.RunAsync(() =>
     var doBuilder = new DigitalOceanBuilder(globalConfig);
     var doResources = doBuilder.Build();
 
-    var azureBuilder = new AzureBuilder(globalConfig, resourceGroup, doResources);
+    var azureBuilder = new AzureBuilder(globalConfig, resourceGroup, doResources, clientConfig);
     var azureResources = azureBuilder.Build();
 
     return new Dictionary<string, object?>
