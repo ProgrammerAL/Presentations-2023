@@ -1,16 +1,16 @@
 ---
-marp: false
+marp: true
 title: Deploying to 1 or More Clouds with Pulumi
 paginate: true
 theme: gaia
 author: Al Rodriguez
+footer: "@ProgrammerAL"
+backgroundImage: url('presentation-images/Simple_Footer.png') 
 ---
 
 # Deploying Infrastructure to 1 or More Clouds with Pulumi
 
 with AL Rodriguez
-
-![bg contain](presentation-images/Simple_Footer.png)
 
 ---
 
@@ -22,10 +22,21 @@ with AL Rodriguez
 #
 ![bg contain](presentation-images/Save_the_Date.png)
 
+<!-- 
+footer: ""
+ -->
+<!-- 
+backgroundImage: ""
+ -->
+
 ---
 #
-![bg contain](presentation-images/Session_Survey_speaker.png)
-![bg contain](presentation-images/Survey_QR_Code.png)
+![bg cover](presentation-images/Session_Survey_speaker.png)
+![height:12cm width:12cm](presentation-images/Survey_QR_Code.png)
+
+<!-- 
+class: "lead"
+ -->
 
 ---
 
@@ -36,6 +47,16 @@ with AL Rodriguez
 - https://programmerAL.com
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.svg)
+
+<!-- 
+footer: "@ProgrammerAL"
+ -->
+<!-- 
+backgroundImage: "url('presentation-images/Simple_Footer.png') "
+ -->
+<!-- 
+class: ""
+ -->
 
 ---
 
@@ -79,9 +100,8 @@ with AL Rodriguez
 
 # Cloud Providers Supported
 
-- All the big ones
+- All the big and less known ones
     - AWS, Azure, GCP, etc
-- Other big but lesser known ones
     - DigitalOcean, Fastly, Scaleway, etc
 - Utility SaaS Providers
     - Auth0, RedisCloud, DNSimple, GitHub, etc
@@ -110,19 +130,30 @@ with AL Rodriguez
 #
 ![bg contain](presentation-images/pulumi-state-flow.png)
 
+
+<!-- 
+footer: ""
+ -->
+<!-- 
+backgroundImage: ""
+ -->
 ---
 
 # Input and Output Objects
 
 - Object for a resource to be created
-- Inputs
-  - Become Outputs
 - Outputs
   - Mark a Dependency
   - Will have a value eventually...in the future
     - Ex: GUID id of a storage account
   - Used to modify a dependency in code
 
+<!-- 
+footer: "@ProgrammerAL"
+ -->
+<!-- 
+backgroundImage: "url('presentation-images/Simple_Footer.png') "
+ -->
 ---
 
 # Example: Demo Application
@@ -138,6 +169,12 @@ with AL Rodriguez
 #
 ![bg contain](presentation-images/pulumi-state-flow.png)
 
+<!-- 
+footer: ""
+ -->
+<!-- 
+backgroundImage: ""
+ -->
 ---
 
 # Output Apply()
@@ -146,6 +183,13 @@ with AL Rodriguez
   - `var url = vm.DnsName.Apply(dnsName => "https://" + dnsName);`
 - String Interpolation
   - `var url = Output.Format($"http://{hostname}:{port}/");`
+
+<!-- 
+footer: "@ProgrammerAL"
+ -->
+<!-- 
+backgroundImage: "url('presentation-images/Simple_Footer.png') "
+ -->
 
 ---
 
@@ -194,11 +238,6 @@ with AL Rodriguez
 
 ---
 
-# Online Info
-
-- @ProgrammerAL
-- https://programmerAL.com
-
-![bg right 80%](presentation-images/presentation_link_qrcode.svg)
-![bg contain](presentation-images/Survey_QR_Code.png)
+![bg 75%](presentation-images/presentation_link_qrcode.svg)
+![bg 75%](presentation-images/Survey_QR_Code.png)
 
