@@ -139,6 +139,20 @@ backgroundImage: ""
  -->
 ---
 
+# Simple Pulumi Flow
+
+1. Run Your Code
+2. Determine Desired State
+3. Use Providers to CRUD Services to Match Desired State
+
+<!-- 
+footer: "@ProgrammerAL"
+ -->
+<!-- 
+backgroundImage: "url('presentation-images/Simple_Footer.png') "
+ -->
+---
+
 # Input and Output Objects
 
 - Object for a resource to be created
@@ -148,12 +162,6 @@ backgroundImage: ""
     - Ex: GUID id of a storage account
   - Used to modify a dependency in code
 
-<!-- 
-footer: "@ProgrammerAL"
- -->
-<!-- 
-backgroundImage: "url('presentation-images/Simple_Footer.png') "
- -->
 ---
 
 # Example: Demo Application
