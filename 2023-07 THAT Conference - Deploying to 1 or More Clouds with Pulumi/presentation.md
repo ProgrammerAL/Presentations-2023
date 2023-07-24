@@ -32,6 +32,8 @@ backgroundImage: ""
 ---
 #
 ![bg cover](presentation-images/Session_Survey_speaker.png)
+
+https://that.land/43lM8Ui
 ![height:12cm width:12cm](presentation-images/Survey_QR_Code.png)
 
 <!-- 
@@ -82,31 +84,28 @@ class: ""
 
 ---
 
-# What Pulumi isn't
-
-- It's not a Cross-Platform abstraction
-  - Clouds are target specifically
-  - Ex: Cloud storage different between AWS S3 and Azure Blob Storage
-
----
-
 
 # Programming Languages Supported
 
-- Many programming languages supported and being added
 ![w:500 h:400](presentation-images/pulumi-languages-and-sdks.png)
 
 --- 
 
-# Cloud Providers Supported
+# Providers
 
-- All the big and less known ones
-    - AWS, Azure, GCP, etc
-    - DigitalOcean, Fastly, Scaleway, etc
+- The big and less-than-big ones
+    - AWS, Azure, GCP, DigitalOcean, Fastly, Scaleway, etc
 - Utility SaaS Providers
-    - Auth0, RedisCloud, DNSimple, GitHub, etc
+    - Auth0, RedisCloud, DNSimple, GitHub, NewRelic, , etc
 - View all at: [pulumi.com/registry](https://www.pulumi.com/registry)
     - 1st party and 3rd party
+---
+
+# What Pulumi isn't
+
+- It's not a Cross-Platform ABSTRACTION
+  - Clouds are target specifically
+  - Ex: Cloud storage different between AWS S3 and Azure Blob Storage
 
 --- 
 
@@ -153,7 +152,7 @@ backgroundImage: "url('presentation-images/Simple_Footer.png') "
  -->
 ---
 
-# Input and Output Objects
+# (input and) Output Objects
 
 - Object for a resource to be created
 - Outputs
@@ -171,11 +170,6 @@ backgroundImage: "url('presentation-images/Simple_Footer.png') "
 - Pulumi creates full DSC, THEN modifies infrastructure
   - So it knows to create DigitalOcean Spaces resource, THEN Azure Functions resource
   - But our code doesn't have to (directly) know about that dependency
-
----
-
-#
-![bg contain](presentation-images/pulumi-state-flow.png)
 
 <!-- 
 footer: ""
@@ -215,7 +209,7 @@ backgroundImage: "url('presentation-images/Simple_Footer.png') "
 - Encrypted in config
 - Per Stack
 - Loaded as an Output value
-- Plan-Text viewable via Pulumi CLI when signed in
+- Plain-Text viewable via Pulumi CLI when signed in
 
 
 ---
