@@ -1,0 +1,5 @@
+config:
+  InfraShared:azure-resource-group-name: demo-infra-shared-rg
+  InfraShared:functions-package-path: ../PublishedExampleFunctionApp.zip
+  InfraShared:location: eastus
+  pulumi:template: azure-csharp

@@ -1,0 +1,5 @@
+config:
+  InfraApp:azure-resource-group-name: demo-infra-app-rg
+  InfraApp:functions-package-path: ../PublishedExampleFunctionApp.zip
+  InfraApp:location: eastus
+  pulumi:template: azure-csharp
