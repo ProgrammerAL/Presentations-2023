@@ -25,14 +25,19 @@ public record AzureResources(AzureResources.ServiceStorageInfra ServiceStorage, 
 }
 
 public record AzureBuilder(
-    GlobalConfig GlobalConfig, 
-    ResourceGroup ResourceGroup, 
-    DigitalOceanResources DigitalOceanResources)
+    GlobalConfig GlobalConfig,
+    ResourceGroup ResourceGroup,
+    DigitalOceanResources DigitalOceanResources,
+    AzureNative.Authorization.GetClientConfigResult ClientConfig)
 {
+    public const string StorageBlobDataOwnerRoleId = "b7e6dc6d-f1e8-4753-8033-0f276bb0955b";
+
     public AzureResources Build()
     {
         var storageInfra = GenerateStorageInfrastructure();
         var functionsInfra = GenerateFunctionsInfrastructure(storageInfra);
+
+        AssignRbacAccesses(functionsInfra, storageInfra);
 
         return new AzureResources(storageInfra, functionsInfra);
     }
@@ -168,5 +173,25 @@ public record AzureBuilder(
         return new AzureResources.FunctionInfra(
             webApp,
             httpsEndpoint);
+    }
+
+
+    private void AssignRbacAccesses(
+        AzureResources.FunctionInfra functionsInfra,
+        AzureResources.ServiceStorageInfra storageInfra
+        )
+    {
+        var functionPrincipalId = functionsInfra.WebApp.Identity.Apply(x => x!.PrincipalId);
+
+        var storageBlobOwnerRole = $"/subscriptions/{ClientConfig.SubscriptionId}/providers/Microsoft.Authorization/roleDefinitions/{StorageBlobDataOwnerRoleId}";
+
+        //Allow reading of the Storage Container that stores the Functions Zip Package
+        _ = new AzureNative.Authorization.RoleAssignment("funcs-storage-blob-data-ownler-role-assignment", new AzureNative.Authorization.RoleAssignmentArgs
+        {
+            PrincipalId = functionPrincipalId,
+            PrincipalType = Pulumi.AzureNative.Authorization.PrincipalType.ServicePrincipal,
+            RoleDefinitionId = storageBlobOwnerRole,
+            Scope = storageInfra.StorageAccount.Id
+        });
     }
 }

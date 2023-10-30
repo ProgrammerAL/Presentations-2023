@@ -1,16 +1,47 @@
 ---
-marp: false
+marp: true
 title: Deploying to 1 or More Clouds with Pulumi
 paginate: true
 theme: gaia
 author: Al Rodriguez
+footer: "@ProgrammerAL"
+backgroundImage: url('presentation-images/Simple_Footer.png') 
 ---
 
-# Deploying to 1 or More Clouds with Pulumi
+# Deploying Infrastructure to 1 or More Clouds with Pulumi
 
 with AL Rodriguez
 
 ---
+
+#
+![bg contain](presentation-images/Sponsors.png)
+
+---
+
+#
+![bg contain](presentation-images/Save_the_Date.png)
+
+<!-- 
+footer: ""
+ -->
+<!-- 
+backgroundImage: ""
+ -->
+
+---
+#
+![bg cover](presentation-images/Session_Survey_speaker.png)
+
+https://that.land/43lM8Ui
+![height:12cm width:12cm](presentation-images/Survey_QR_Code.png)
+
+<!-- 
+class: "lead"
+ -->
+
+---
+
 
 # Online Info
 
@@ -18,6 +49,16 @@ with AL Rodriguez
 - https://programmerAL.com
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.svg)
+
+<!-- 
+footer: "@ProgrammerAL"
+ -->
+<!-- 
+backgroundImage: "url('presentation-images/Simple_Footer.png') "
+ -->
+<!-- 
+class: ""
+ -->
 
 ---
 
@@ -37,61 +78,34 @@ with AL Rodriguez
   - Create/Read/Update/Delete services
   - IaC - Infrastructure as Code
   - DSC - Desired State Configuration
+- Procedural and Imperative
 - Open Sourced
   - _Can_ be free if you self host
-- Procedural and Imperative
-
-
----
-
-# Quick Example Code
-
-```csharp
-using System.Collections.Generic;
-using Pulumi;
-using Pulumi.Eks;
-
-await Deployment.RunAsync(() =>
-{
-  // Create an EKS cluster with default settings.
-  var cluster = new Cluster("eks-cluster");
-
-  // Export the cluster's kubeconfig.
-  return new Dictionary<string, object?>
-  {
-    ["kubeconfig"] = cluster.Kubeconfig
-  };
-});
-```
-
----
-
-# What Pulumi isn't
-
-- It's not a Cross-Platform abstraction
-  - Clouds are target specifically
-  - Ex: Cloud storage different between AWS S3 and Azure Blob Storage
 
 ---
 
 
 # Programming Languages Supported
 
-- Many programming languages supported and being added
 ![w:500 h:400](presentation-images/pulumi-languages-and-sdks.png)
 
 --- 
 
-# Cloud Providers Supported
+# Providers
 
-- All the big ones
-    - AWS, Azure, GCP, etc
-- Other big but lesser known ones
-    - DigitalOcean, Fastly, Scaleway, etc
+- The big and less-than-big ones
+    - AWS, Azure, GCP, DigitalOcean, Fastly, Scaleway, etc
 - Utility SaaS Providers
-    - Auth0, RedisCloud, DNSimple, GitHub, etc
+    - Auth0, RedisCloud, DNSimple, GitHub, NewRelic, , etc
 - View all at: [pulumi.com/registry](https://www.pulumi.com/registry)
     - 1st party and 3rd party
+---
+
+# What Pulumi isn't
+
+- It's not a Cross-Platform ABSTRACTION
+  - Clouds are target specifically
+  - Ex: Cloud storage different between AWS S3 and Azure Blob Storage
 
 --- 
 
@@ -103,17 +117,46 @@ await Deployment.RunAsync(() =>
 
 ---
 
-#
-![bg contain](presentation-images/pulumi-state-flow.png)
+# Pulumi Features Overview
+
+- Application Flow
+- Input/Outputs
+- Config
+- Stacks
 
 ---
 
-# Input and Output Objects
+#
+![bg contain](presentation-images/pulumi-state-flow.png)
+
+
+<!-- 
+footer: ""
+ -->
+<!-- 
+backgroundImage: ""
+ -->
+---
+
+# Simple Pulumi Flow
+
+1. Run Your Code
+2. Determine Desired State
+3. Use Providers to CRUD Services to Match Desired State
+
+<!-- 
+footer: "@ProgrammerAL"
+ -->
+<!-- 
+backgroundImage: "url('presentation-images/Simple_Footer.png') "
+ -->
+---
+
+# (input and) Output Objects
 
 - Object for a resource to be created
-- Inputs
-  - Become Outputs
 - Outputs
+  - Mark a Dependency
   - Will have a value eventually...in the future
     - Ex: GUID id of a storage account
   - Used to modify a dependency in code
@@ -128,11 +171,12 @@ await Deployment.RunAsync(() =>
   - So it knows to create DigitalOcean Spaces resource, THEN Azure Functions resource
   - But our code doesn't have to (directly) know about that dependency
 
----
-
-#
-![bg contain](presentation-images/pulumi-state-flow.png)
-
+<!-- 
+footer: ""
+ -->
+<!-- 
+backgroundImage: ""
+ -->
 ---
 
 # Output Apply()
@@ -141,6 +185,13 @@ await Deployment.RunAsync(() =>
   - `var url = vm.DnsName.Apply(dnsName => "https://" + dnsName);`
 - String Interpolation
   - `var url = Output.Format($"http://{hostname}:{port}/");`
+
+<!-- 
+footer: "@ProgrammerAL"
+ -->
+<!-- 
+backgroundImage: "url('presentation-images/Simple_Footer.png') "
+ -->
 
 ---
 
@@ -158,7 +209,7 @@ await Deployment.RunAsync(() =>
 - Encrypted in config
 - Per Stack
 - Loaded as an Output value
-- Plan-Text viewable via Pulumi CLI when signed in
+- Plain-Text viewable via Pulumi CLI when signed in
 
 
 ---
@@ -189,10 +240,6 @@ await Deployment.RunAsync(() =>
 
 ---
 
-# Online Info
-
-- @ProgrammerAL
-- https://programmerAL.com
-
-![bg right 80%](presentation-images/presentation_link_qrcode.svg)
+![bg 75%](presentation-images/presentation_link_qrcode.svg)
+![bg 75%](presentation-images/Survey_QR_Code.png)
 
