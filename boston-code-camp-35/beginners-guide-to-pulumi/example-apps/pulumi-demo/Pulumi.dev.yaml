@@ -1,0 +1,9 @@
+config:
+  pulumi-demo:azure-resource-group-name: demo-rg
+  pulumi-demo:do-spaces-access-id:
+    secure: AAABAMSk3MDexHqx8aHTtXgzhPcvjEN+ztRvsYarYHGKWI6ECanwdU6rZUTHy7CPY3Sn1Q==
+  pulumi-demo:do-spaces-access-secret:
+    secure: AAABANfcOq2IKDxfWWWrz4X4JMy76O0iPyHxamQZiTQeZmHvwqAQlDF7fVu5DsLr/WBOrCRtxqEBD/poA3eXGfsN4Chxi5gHZ1ZS
+  pulumi-demo:functions-package-path: ../PublishedExampleFunctionApp.zip
+  pulumi-demo:location: eastus
+  pulumi:template: azure-csharp
