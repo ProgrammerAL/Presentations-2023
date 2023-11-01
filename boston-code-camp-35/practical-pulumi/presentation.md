@@ -31,13 +31,31 @@ with AL Rodriguez
 
 ---
 
+# Inputs/Outputs
+
+- Dependencies
+- Usually values don't exist yet
+  - Ex: Azure Function Endpoint
+- Get `myResource.Endpoint.Apply(x => {/*Your Code Here*/})`
+  - Doesn't run the lambda until `.Endpoint` a value
+
+---
+
 # Config
 
-- Loading Objects
-  -
-- Helpful to load required values
-- Runtime Config
-  - Spoiler: Doesn't exist
+- Avoid Exceptions partway through
+  - Load everything at once
+  - Load values as `required`
+- Load Objects
+
+---
+
+# Runtime Config
+
+- Spoiler: Doesn't exist!
+- Edit YAML before running
+  - As part of CI/CD pipeline
+  - Load from external source
 
 ---
 
@@ -47,10 +65,18 @@ with AL Rodriguez
 - Load with cusom code
 - Load using provider, like 1Password
 - Pulumi ESC
+- Secret Objects???
+
+---
+
+# Get Functions
 
 ---
 
 # Stack References
+
+- Load Outputs from other Stacks
+- Order Matters
 
 ---
 

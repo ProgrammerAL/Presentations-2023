@@ -25,9 +25,8 @@ public record AzureResources(AzureResources.ServiceStorageInfra ServiceStorage, 
 }
 
 public record AzureBuilder(
-    GlobalConfig GlobalConfig, 
-    ResourceGroup ResourceGroup, 
-    DigitalOceanResources DigitalOceanResources)
+    GlobalConfig GlobalConfig,
+    ResourceGroup ResourceGroup)
 {
     public AzureResources Build()
     {
@@ -97,6 +96,8 @@ public record AzureBuilder(
             Reserved = true,
         });
 
+        var sharedAppConfig = GlobalConfig.ExternalStacksInfoConfig.SharedAppConfig;
+
         var functionAppSiteConfig = new SiteConfigArgs
         {
             LinuxFxVersion = "DOTNET-ISOLATED|7.0",
@@ -127,24 +128,14 @@ public record AzureBuilder(
                 },
                 new NameValuePairArgs
                 {
-                    Name = "PublicS3StorageConfig__BucketEndpoint",
+                    Name = "AppConfigConnectionString",
+                    Value = sharedAppConfig.Apply(x => x.Endpoint)
+                },
+                new NameValuePairArgs
+                {
+                    Name = "AppConfigEnvironment",
                     Value = DigitalOceanResources.BucketServiceUrl,
-                },
-                new NameValuePairArgs
-                {
-                    Name = "PublicS3StorageConfig__BucketName",
-                    Value = DigitalOceanResources.Bucket.Name,
-                },
-                new NameValuePairArgs
-                {
-                    Name = "PublicS3StorageConfig__AccessId",
-                    Value = GlobalConfig.DigitalOceanConfig.SpacesAccessId
-                },
-                new NameValuePairArgs
-                {
-                    Name = "PublicS3StorageConfig__AccessSecret",
-                    Value = GlobalConfig.DigitalOceanConfig.SpacesAccessSecret
-                },
+                }
             }
         };
 

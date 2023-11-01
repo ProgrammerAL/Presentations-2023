@@ -5,18 +5,18 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var host = new HostBuilder()
-    .ConfigureFunctionsWorkerDefaults()
+    .ConfigureAppConfiguration(x =>
+    {
 #if DEBUG
-            .ConfigureAppConfiguration(x =>
-            {
-                x.AddJsonFile("host.json");
-                x.AddJsonFile("local.settings.json");
-            })
+        x.AddJsonFile("host.json");
+        x.AddJsonFile("local.settings.json");
 #endif
+    })
     .ConfigureServices(serviceCollection =>
     {
-        serviceCollection.AddSingleton(x => PublicS3StorageConfig.LoadFromConfig(x));
+        serviceCollection.AddSingleton(x => ServiceConfig.LoadFromConfig(x));
     })
+    .ConfigureFunctionsWorkerDefaults()
     .Build();
 
 host.Run();

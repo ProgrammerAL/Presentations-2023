@@ -1,21 +1,33 @@
-using ExampleFunctionApp;
-
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 var host = new HostBuilder()
-    .ConfigureFunctionsWorkerDefaults()
+    .ConfigureAppConfiguration(x =>
+    {
 #if DEBUG
-            .ConfigureAppConfiguration(x =>
-            {
-                x.AddJsonFile("host.json");
-                x.AddJsonFile("local.settings.json");
-            })
+        x.AddJsonFile("host.json");
+        x.AddJsonFile("local.settings.json");
 #endif
+
+        x.AddAzureAppConfiguration(options =>
+        {
+            var connectionString = Environment.GetEnvironmentVariable("AppConfigConnectionString") ?? throw new Exception("Missing environment variable AppConfigConnectionString");
+            var envrionment = Environment.GetEnvironmentVariable("AppConfigEnvironment") ?? throw new Exception("Missing environment variable AppConfigConnectionString");
+
+            options.Connect(Environment.GetEnvironmentVariable("AppConfigConnectionString"))
+                                   .Select($"ExampleFunctionApp:{envrionment}")
+                                   .ConfigureRefresh(refreshOptions =>
+                                       refreshOptions.Register($"ExampleFunctionApp:{envrionment}:Sentinel", refreshAll: true));
+        });
+    })
     .ConfigureServices(serviceCollection =>
     {
-        serviceCollection.AddSingleton(x => PublicS3StorageConfig.LoadFromConfig(x));
+        //serviceCollection.AddSingleton(x => ServiceConfig.LoadFromConfig(x));
+        serviceCollection.AddAzureAppConfiguration();
+    })
+    .ConfigureFunctionsWorkerDefaults(x =>
+    {
+        x.UseAzureAppConfiguration();
     })
     .Build();
 

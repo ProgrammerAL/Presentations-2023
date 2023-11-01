@@ -1,0 +1,27 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+
+    "ApplicationInsightsConfig__ConnectionString": "InstrumentationKey=03954727-8e50-4fe7-8966-c526a122dd4f;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/",
+
+    "GraphResourcesConfig__Lookups__0__SubscriptionName": "cccis-casualty-geico-prod",
+    "GraphResourcesConfig__Lookups__0__SubscriptionId": "884fdeb4-31b7-4add-a580-a9c3fa9d8296",
+    "GraphResourcesConfig__Lookups__0__ResourceGroupName": "rg-casualty-geico-backup-prod-centralus",
+
+    "AzureTablesConfig__Endpoint": "https://vmdrmgmtalrodri.table.core.windows.net/",
+    "BlobStorageConfig__ContainerUri": "https://vmdrmgmtalrodri.blob.core.windows.net/vm-infos",
+    "VmInfoConfig__HistoryCount": 1,
+
+    "SnapshotsCopyConfig__SnapshotsToKeep": 2,
+    "SnapshotsCopyConfig__CopyTasks__0__Source__SubscriptionId": "884fdeb4-31b7-4add-a580-a9c3fa9d8296",
+    "SnapshotsCopyConfig__CopyTasks__0__Source__SubscriptionName": "cccis-casualty-geico-prod",
+    "SnapshotsCopyConfig__CopyTasks__0__Source__ResourceGroupName": "rg-casualty-geico-backup-prod-centralus",
+    "SnapshotsCopyConfig__CopyTasks__0__Source__BackupVaultName": "bvault-casualty-geico-prod-centralus",
+    "SnapshotsCopyConfig__CopyTasks__0__Target__SubscriptionId": "7291debf-60fa-4712-be2a-764c901549f0",
+    "SnapshotsCopyConfig__CopyTasks__0__Target__SubscriptionName": "cccis-casualty-geico-dr",
+    "SnapshotsCopyConfig__CopyTasks__0__Target__ResourceGroupName": "rg-casualty-geico-backup-dr-eastus2",
+    "SnapshotsCopyConfig__CopyTasks__0__Target__Location": "East US 2"
+  }
+}

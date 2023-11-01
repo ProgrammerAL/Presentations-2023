@@ -1,14 +1,10 @@
-﻿using Pulumi;
-using Pulumi.AzureNative.Resources;
-using Pulumi.AzureNative.Storage;
-using Pulumi.AzureNative.Storage.Inputs;
-using Pulumi.AzureNative.Web;
-using Pulumi.AzureNative.Web.Inputs;
+﻿using Pulumi.AzureNative.Resources;
 
-using PulumiDemo;
-using PulumiDemo.Builders;
-using PulumiDemo.Config;
+using Pulumi.AzureNative.AppConfiguration;
+using Pulumi.AzureNative.AppConfiguration.Inputs;
 
+using Pulumi;
+using InfraShared.Config;
 using System.Collections.Generic;
 
 return await Pulumi.Deployment.RunAsync(() =>
@@ -17,20 +13,33 @@ return await Pulumi.Deployment.RunAsync(() =>
     var globalConfig = GlobalConfig.Load(pulumiConfig);
 
     var resourceGroup = new ResourceGroup(globalConfig.AzureConfig.ResourceGroupName, new ResourceGroupArgs
-    { 
+    {
         Location = globalConfig.AzureConfig.Location
     });
 
-    var doBuilder = new DigitalOceanBuilder(globalConfig);
-    var doResources = doBuilder.Build();
-
-    var azureBuilder = new AzureBuilder(globalConfig, resourceGroup, doResources);
-    var azureResources = azureBuilder.Build();
+    var appConfig = new ConfigurationStore("shared-app-config", new ConfigurationStoreArgs
+    {
+        ResourceGroupName = resourceGroup.Name,
+        Location = resourceGroup.Location,
+        CreateMode = CreateMode.Default,
+        PublicNetworkAccess = PublicNetworkAccess.Enabled,
+        EnablePurgeProtection = false,
+        SoftDeleteRetentionInDays = 0,
+        Identity = new ResourceIdentityArgs
+        {
+            Type = IdentityType.SystemAssigned
+        },
+        Sku = new SkuArgs
+        {
+            Name = "free"
+        },
+        DisableLocalAuth = false,
+    });
 
     return new Dictionary<string, object?>
     {
-        { "PublicStorageEndpoint", doResources.BucketServiceUrl },
-        { "FunctionHttpsEndpoint", azureResources.Function.HttpsEndpoint },
+        { "AzureSharedResourceGroupName", resourceGroup.Name },
+        { "AppConfigResourceName", appConfig.Name }
     };
 });
 
