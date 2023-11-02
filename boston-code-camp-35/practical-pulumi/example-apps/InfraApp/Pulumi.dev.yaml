@@ -1,8 +1,10 @@
 config:
   InfraApp:azure-resource-group-name: demo-infra-app-rg
-  InfraApp:functions-package-path: ../PublishedExampleFunctionApp.zip
+  InfraApp:functions-package-path: ../ExampleFunctionApp.zip
   InfraApp:location: eastus
-  InfraApp:version: dev
+  InfraApp:service-config: 
+    Version: dev-version
+    Environment: dev
   InfraApp:external-stacks:
     SharedStackName: ProgrammerAL/InfraShared/dev
   pulumi:template: azure-csharp

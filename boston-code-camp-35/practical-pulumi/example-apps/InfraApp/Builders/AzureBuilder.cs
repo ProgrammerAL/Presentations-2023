@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 using Pulumi;
 using Pulumi.AzureNative;
+using Pulumi.AzureNative.AppConfiguration;
+using Pulumi.AzureNative.Authorization;
 using Pulumi.AzureNative.Resources;
 using Pulumi.AzureNative.Storage;
 using Pulumi.AzureNative.Web;
@@ -32,6 +34,8 @@ public record AzureBuilder(
     {
         var storageInfra = GenerateStorageInfrastructure();
         var functionsInfra = GenerateFunctionsInfrastructure(storageInfra);
+        AddVariablesToAppConfig();
+        AssignRbacAccesses(functionsInfra, storageInfra);
 
         return new AzureResources(storageInfra, functionsInfra);
     }
@@ -71,7 +75,8 @@ public record AzureBuilder(
             ContainerName = functionsContainer.Name,
             AccessTier = BlobAccessTier.Hot,
             ResourceGroupName = ResourceGroup.Name,
-            Source = new FileArchive(GlobalConfig.AzureConfig.FunctionsPackagePath)
+            Source = new FileArchive(GlobalConfig.AzureConfig.FunctionsPackagePath),
+            BlobName = "functions.zip",
         });
 
         return new AzureResources.ServiceStorageInfra(
@@ -129,12 +134,12 @@ public record AzureBuilder(
                 new NameValuePairArgs
                 {
                     Name = "AppConfigConnectionString",
-                    Value = sharedAppConfig.Apply(x => x.Endpoint)
+                    Value = GlobalConfig.ExternalStacksInfoConfig.AccessKey.Apply(x => x.ConnectionString)
                 },
                 new NameValuePairArgs
                 {
                     Name = "AppConfigEnvironment",
-                    Value = DigitalOceanResources.BucketServiceUrl,
+                    Value = GlobalConfig.ServiceConfig.Environment,
                 }
             }
         };
@@ -159,5 +164,49 @@ public record AzureBuilder(
         return new AzureResources.FunctionInfra(
             webApp,
             httpsEndpoint);
+    }
+
+    private void AddVariablesToAppConfig()
+    {
+        var appConfig = GlobalConfig.ExternalStacksInfoConfig.SharedAppConfig;
+        var sharedResourceGroup = GlobalConfig.ExternalStacksInfoConfig.SharedResourceGroup;
+        var environment = GlobalConfig.ServiceConfig.Environment;
+
+        _ = new KeyValue("app-config-environment", new KeyValueArgs
+        {
+            ResourceGroupName = sharedResourceGroup.Apply(x => x.Name),
+            ConfigStoreName = appConfig.Apply(x => x.Name),
+            KeyValueName = $"ServiceConfig:Environment${environment}",
+            Value = GlobalConfig.ServiceConfig.Environment
+        });
+
+        _ = new KeyValue("app-config-version", new KeyValueArgs
+        {
+            ResourceGroupName = sharedResourceGroup.Apply(x => x.Name),
+            ConfigStoreName = appConfig.Apply(x => x.Name),
+            KeyValueName = $"ServiceConfig:Version${environment}",
+            Value = GlobalConfig.ServiceConfig.Version
+        });
+    }
+
+    private void AssignRbacAccesses(AzureResources.FunctionInfra functionsInfra, AzureResources.ServiceStorageInfra storageInfra)
+    {
+        var functionPrincipalId = functionsInfra.WebApp.Identity.Apply(x => x!.PrincipalId);
+        var blobOwnerRoleDefinitionId = GenerateStorageBlobDataOwnerRoleId(GlobalConfig.AzureConfig.ClientConfig.SubscriptionId);
+
+        //Allow reading of the Storage Container that stores the Functions Zip Package
+        //Note: Even though the function app only reads from the storage, it needs read/write access. I don't know why
+        _ = new RoleAssignment("funcs-storage-blob-data-reader-role-assignment", new RoleAssignmentArgs
+        {
+            PrincipalId = functionPrincipalId,
+            PrincipalType = PrincipalType.ServicePrincipal,
+            RoleDefinitionId = blobOwnerRoleDefinitionId,
+            Scope = storageInfra.StorageAccount.Id
+        });
+    }
+
+    public static string GenerateStorageBlobDataOwnerRoleId(string subscriptionId)
+    {
+        return "/subscriptions/" + subscriptionId + "/providers/Microsoft.Authorization/roleDefinitions/" + "b7e6dc6d-f1e8-4753-8033-0f276bb0955b";
     }
 }

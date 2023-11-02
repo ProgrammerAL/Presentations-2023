@@ -8,18 +8,11 @@ using System.Threading.Tasks;
 
 namespace ExampleFunctionApp;
 
-//public record ServiceConfig(string Version)
-//{
-//    public static ServiceConfig LoadFromConfig(IServiceProvider provider)
-//    {
-//        var version = ConfigHelpers.LoadStringValueFromConfig(provider, nameof(ServiceConfig), nameof(Version));
-//        return new ServiceConfig(version);
-//    }
-//}
-
-
 public class ServiceConfig
 {
+    [Required, NotNull]
+    public string? Environment { get; set; }
+
     [Required, NotNull]
     public string? Version { get; set; }
 }

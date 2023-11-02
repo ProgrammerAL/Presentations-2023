@@ -59,12 +59,15 @@ with AL Rodriguez
 
 ---
 
+# Pulumi ESC
+
+---
+
 # Secrets
 
 - Pulumi Config Secrets
 - Load with cusom code
 - Load using provider, like 1Password
-- Pulumi ESC
 - Secret Objects???
 
 ---

@@ -1,5 +1,5 @@
 
 
-Here are some Endpoints:
-  - Function Endpoint: ${outputs.FunctionHttpsEndpoint}
-  - Public Storage Endpoint: ${outputs.PublicStorageEndpoint}
+Here are some Outputs:
+  - AzureSharedResourceGroupName: ${outputs.AzureSharedResourceGroupName}
+  - AppConfigResourceName: ${outputs.AppConfigResourceName}

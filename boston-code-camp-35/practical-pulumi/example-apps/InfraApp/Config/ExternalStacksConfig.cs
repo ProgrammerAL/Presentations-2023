@@ -1,8 +1,6 @@
-﻿using InfraApp.Config;
+﻿using System;
 
-using System;
-
-namespace PurpleSpikeProductions.Iaac.ArcadeServices.Config;
+namespace InfraApp.Config;
 public record ExternalStacksConfig(
     string SharedStackName);
 
