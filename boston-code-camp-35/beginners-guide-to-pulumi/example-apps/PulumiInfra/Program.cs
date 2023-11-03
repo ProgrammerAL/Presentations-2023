@@ -11,25 +11,21 @@ using PulumiDemo.Config;
 
 using System.Collections.Generic;
 
-return await Pulumi.Deployment.RunAsync(() =>
+return await Pulumi.Deployment.RunAsync(async () =>
 {
     var pulumiConfig = new Config();
-    var globalConfig = GlobalConfig.Load(pulumiConfig);
+    var globalConfig = await GlobalConfig.LoadAsync(pulumiConfig);
 
     var resourceGroup = new ResourceGroup(globalConfig.AzureConfig.ResourceGroupName, new ResourceGroupArgs
     { 
         Location = globalConfig.AzureConfig.Location
     });
 
-    var doBuilder = new DigitalOceanBuilder(globalConfig);
-    var doResources = doBuilder.Build();
-
-    var azureBuilder = new AzureBuilder(globalConfig, resourceGroup, doResources);
+    var azureBuilder = new AzureBuilder(globalConfig, resourceGroup);
     var azureResources = azureBuilder.Build();
 
     return new Dictionary<string, object?>
     {
-        { "PublicStorageEndpoint", doResources.BucketServiceUrl },
         { "FunctionHttpsEndpoint", azureResources.Function.HttpsEndpoint },
     };
 });

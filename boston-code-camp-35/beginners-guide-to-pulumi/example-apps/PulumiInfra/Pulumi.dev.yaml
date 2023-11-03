@@ -1,0 +1,8 @@
+config:
+  PulumiInfra:azure-resource-group-name: demo-beginning-pulumi-rg
+  PulumiInfra:functions-package-path: ../ExampleFunctionApp.zip
+  PulumiInfra:location: eastus
+  PulumiInfra:service-config: 
+    Version: dev-version
+    Environment: dev
+  pulumi:template: azure-csharp

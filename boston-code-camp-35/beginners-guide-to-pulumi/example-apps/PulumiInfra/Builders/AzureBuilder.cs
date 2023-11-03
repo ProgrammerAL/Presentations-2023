@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 using Pulumi;
 using Pulumi.AzureNative;
+using Pulumi.AzureNative.AppConfiguration;
+using Pulumi.AzureNative.Authorization;
 using Pulumi.AzureNative.Resources;
 using Pulumi.AzureNative.Storage;
 using Pulumi.AzureNative.Web;
@@ -25,14 +27,14 @@ public record AzureResources(AzureResources.ServiceStorageInfra ServiceStorage, 
 }
 
 public record AzureBuilder(
-    GlobalConfig GlobalConfig, 
-    ResourceGroup ResourceGroup, 
-    DigitalOceanResources DigitalOceanResources)
+    GlobalConfig GlobalConfig,
+    ResourceGroup ResourceGroup)
 {
     public AzureResources Build()
     {
         var storageInfra = GenerateStorageInfrastructure();
         var functionsInfra = GenerateFunctionsInfrastructure(storageInfra);
+        AssignRbacAccesses(functionsInfra, storageInfra);
 
         return new AzureResources(storageInfra, functionsInfra);
     }
@@ -72,7 +74,8 @@ public record AzureBuilder(
             ContainerName = functionsContainer.Name,
             AccessTier = BlobAccessTier.Hot,
             ResourceGroupName = ResourceGroup.Name,
-            Source = new FileArchive(GlobalConfig.AzureConfig.FunctionsPackagePath)
+            Source = new FileArchive(GlobalConfig.AzureConfig.FunctionsPackagePath),
+            BlobName = "functions.zip",
         });
 
         return new AzureResources.ServiceStorageInfra(
@@ -127,24 +130,14 @@ public record AzureBuilder(
                 },
                 new NameValuePairArgs
                 {
-                    Name = "PublicS3StorageConfig__BucketEndpoint",
-                    Value = DigitalOceanResources.BucketServiceUrl,
+                    Name = "ServiceConfig__Version",
+                    Value = GlobalConfig.ServiceConfig.Version
                 },
                 new NameValuePairArgs
                 {
-                    Name = "PublicS3StorageConfig__BucketName",
-                    Value = DigitalOceanResources.Bucket.Name,
-                },
-                new NameValuePairArgs
-                {
-                    Name = "PublicS3StorageConfig__AccessId",
-                    Value = GlobalConfig.DigitalOceanConfig.SpacesAccessId
-                },
-                new NameValuePairArgs
-                {
-                    Name = "PublicS3StorageConfig__AccessSecret",
-                    Value = GlobalConfig.DigitalOceanConfig.SpacesAccessSecret
-                },
+                    Name = "ServiceConfig__Environment",
+                    Value = GlobalConfig.ServiceConfig.Environment,
+                }
             }
         };
 
@@ -168,5 +161,26 @@ public record AzureBuilder(
         return new AzureResources.FunctionInfra(
             webApp,
             httpsEndpoint);
+    }
+
+    private void AssignRbacAccesses(AzureResources.FunctionInfra functionsInfra, AzureResources.ServiceStorageInfra storageInfra)
+    {
+        var functionPrincipalId = functionsInfra.WebApp.Identity.Apply(x => x!.PrincipalId);
+        var blobOwnerRoleDefinitionId = GenerateStorageBlobDataOwnerRoleId(GlobalConfig.AzureConfig.ClientConfig.SubscriptionId);
+
+        //Allow reading of the Storage Container that stores the Functions Zip Package
+        //Note: Even though the function app only reads from the storage, it needs read/write access. I don't know why
+        _ = new RoleAssignment("funcs-storage-blob-data-reader-role-assignment", new RoleAssignmentArgs
+        {
+            PrincipalId = functionPrincipalId,
+            PrincipalType = PrincipalType.ServicePrincipal,
+            RoleDefinitionId = blobOwnerRoleDefinitionId,
+            Scope = storageInfra.StorageAccount.Id
+        });
+    }
+
+    public static string GenerateStorageBlobDataOwnerRoleId(string subscriptionId)
+    {
+        return "/subscriptions/" + subscriptionId + "/providers/Microsoft.Authorization/roleDefinitions/" + "b7e6dc6d-f1e8-4753-8033-0f276bb0955b";
     }
 }
