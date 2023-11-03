@@ -14,7 +14,11 @@ var host = new HostBuilder()
     })
     .ConfigureServices(serviceCollection =>
     {
-        serviceCollection.AddSingleton(x => ServiceConfig.LoadFromConfig(x));
+        serviceCollection.AddOptions<ServiceConfig>()
+        .Configure<IConfiguration>((settings, configuration) =>
+        {
+            configuration.GetSection(nameof(ServiceConfig)).Bind(settings);
+        });
     })
     .ConfigureFunctionsWorkerDefaults()
     .Build();

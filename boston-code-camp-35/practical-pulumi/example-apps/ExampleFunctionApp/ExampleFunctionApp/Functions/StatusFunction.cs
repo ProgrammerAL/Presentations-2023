@@ -8,16 +8,16 @@ using Microsoft.Extensions.Options;
 
 namespace ExampleFunctionApp.Functions;
 
-public class HealthCheckFunction
+public class StatusFunction
 {
     private readonly IOptions<ServiceConfig> _serviceConfig;
 
-    public HealthCheckFunction(IOptions<ServiceConfig> serviceConfig, IConfiguration config)
+    public StatusFunction(IOptions<ServiceConfig> serviceConfig)
     {
         _serviceConfig = serviceConfig;
     }
 
-    [Function("health-check")]
+    [Function("status")]
     public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
     {
         var responseObject = new Response(Version: _serviceConfig.Value.Version, Environment: _serviceConfig.Value.Environment);
