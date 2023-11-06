@@ -12,12 +12,14 @@ with AL Rodriguez
 
 ---
 
-# Online Info
+# Me (AL)
 
 - @ProgrammerAL
-- https://programmerAL.com
+- programmerAL.com
+- youtube.com/@ProgrammerAL
+- NOT affiliated with Pulumi
 
-![bg right 80%](presentation-images/presentation_link_qrcode.svg)
+![bg right 80%](presentation-images/presentation_link_qrcode.png)
 
 ---
 
@@ -31,48 +33,77 @@ with AL Rodriguez
 
 ---
 
+#
+
+![bg contain](presentation-images/pulumi-state-flow.png)
+
+---
+
+# Dependencies
+
+---
+
 # Inputs/Outputs
 
 - Dependencies
 - Usually values don't exist yet
   - Ex: Azure Function Endpoint
-- Get `myResource.Endpoint.Apply(x => {/*Your Code Here*/})`
-  - Doesn't run the lambda until `.Endpoint` a value
+- Get `Output<string> myEndpoint = myResource.Endpoint.Apply(endpoint => $"https://{endpoint}")`
+  - Doesn't run the lambda until `.Endpoint` has a value
 
 ---
 
 # Config
 
-- Avoid Exceptions partway through
+---
+
+# Config
+
+- Load Objects when possible
+- Avoid Exceptions when possible
   - Load everything at once
   - Load values as `required`
-- Load Objects
 
 ---
 
-# Runtime Config
+# Config Inputs
 
 - Spoiler: Doesn't exist!
 - Edit YAML before running
   - As part of CI/CD pipeline
-  - Load from external source
-
----
-
-# Pulumi ESC
+- Load from external source with custom code
+  - The config values are not tracked
 
 ---
 
 # Secrets
 
 - Pulumi Config Secrets
-- Load with cusom code
-- Load using provider, like 1Password
+- Load using provider
+  - 1Password, Azure Key Vault, etc
+- Load from external source with custom code
+  - The config values are not tracked
 - Secret Objects???
 
 ---
 
+# Pulumi ESC
+
+- ESC = Environments, Secrets, and Configuration
+- Separate tool, bundled with the Pulumi CLI
+- Consume config from anywhere
+
+---
+
+# Other Stuff
+
+---
+
 # Get Functions
+
+- Load cloud resources that already exist
+- Read-Only
+- Not necessarily managed by Pulumi
 
 ---
 
@@ -83,23 +114,33 @@ with AL Rodriguez
 
 ---
 
-# Concept: Deploy App with Pulumi
+# Automation API
 
-- Pros:
-  - Less code
-- Cons:
-  - More Complex
+- API to run Pulumi outside of console
+  - Don't have to use `pulumi up`
+- Common Use CAses: CI/CD or internal portal
 
 ---
 
-# Automation API
+# Concept: Deploy App with Pulumi
+
+- Can also deploy app when deploying cloud infra with Pulumi
+  - Totally your choice
+- Same amount of dependencies
+- If together
+  - Can set app config values with Pulumi
+- If separate
+  - Can use Automation API to set app config values
 
 ---
 
 # Automated Testing
 
 - Unit Tests
+  - API can be mocked in code to let unit tests run
+  - Useful if your Pulumi code has custom logic
 - Automation Tests
+  - Probably more useful overall
 
 ---
 
@@ -112,4 +153,15 @@ with AL Rodriguez
 
 # Pulumi AI
 
+- Generate Pulumi Code using that thing everyone's talking about
+- pulumi.com/ai
+
 ---
+
+# Online Info
+
+- @ProgrammerAL
+- programmerAL.com
+- youtube.com/@ProgrammerAL
+
+![bg right 80%](presentation-images/presentation_link_qrcode.png)

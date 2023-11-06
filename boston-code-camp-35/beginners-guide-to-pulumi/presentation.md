@@ -6,18 +6,20 @@ theme: gaia
 author: Al Rodriguez
 ---
 
-# Deploying to 1 or More Clouds with Pulumi
+# A Beginner's Guide to Pulumi
 
 with AL Rodriguez
 
 ---
 
-# Online Info
+# Me (AL)
 
 - @ProgrammerAL
-- https://programmerAL.com
+- programmerAL.com
+- youtube.com/@ProgrammerAL
+- NOT affiliated with Pulumi
 
-![bg right 80%](presentation-images/presentation_link_qrcode.svg)
+![bg right 80%](presentation-images/presentation_link_qrcode.png)
 
 ---
 
@@ -26,7 +28,7 @@ with AL Rodriguez
 - Introduction to Pulumi
 - Assumes you know nothing about it
   - Or you've heard about it but never looked into it
-- Uses C#, Azure, and DigitalOcean
+- Uses C# and Azure
   - But the concepts apply to other languages and clouds supported by Pulumi
 
 ---
@@ -119,28 +121,9 @@ await Deployment.RunAsync(() =>
 
 ---
 
-# Example: Demo Application
-
-- Azure Function given reference to DigitalOcean Spaces resource endpoint
-  - It needs to know where to send data
-- Pulumi creates full DSC, THEN modifies infrastructure
-  - So it knows to create DigitalOcean Spaces resource, THEN Azure Functions resource
-  - But our code doesn't have to (directly) know about that dependency
-
----
-
 #
 
 ![bg contain](presentation-images/pulumi-state-flow.png)
-
----
-
-# Output Apply()
-
-- Raw Method
-  - `var url = vm.DnsName.Apply(dnsName => "https://" + dnsName);`
-- String Interpolation
-  - `var url = Output.Format($"http://{hostname}:{port}/");`
 
 ---
 
@@ -158,7 +141,8 @@ await Deployment.RunAsync(() =>
 - Encrypted in config
 - Per Stack
 - Loaded as an Output value
-- Plan-Text viewable via Pulumi CLI when signed in
+- Plan-Text viewable via Pulumi CLI
+  - When signed in
 
 ---
 
@@ -168,13 +152,6 @@ await Deployment.RunAsync(() =>
 - Usable in:
   - Stack References
   - `Pulumi.README.md` files
-
----
-
-# Stack References
-
-- Access Stack Outputs from other stacks
-  - Same app or others
 
 ---
 
@@ -196,6 +173,7 @@ await Deployment.RunAsync(() =>
 # Online Info
 
 - @ProgrammerAL
-- https://programmerAL.com
+- programmerAL.com
+- youtube.com/@ProgrammerAL
 
-![bg right 80%](presentation-images/presentation_link_qrcode.svg)
+![bg right 80%](presentation-images/presentation_link_qrcode.png)
