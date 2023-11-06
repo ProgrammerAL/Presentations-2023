@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 using Pulumi;
 
-namespace InfraShared.Config;
+namespace PulumiDemo.Config;
 
 public record AzureConfig(string Location, string ResourceGroupName);
 

@@ -4,7 +4,7 @@ using Pulumi.AzureNative.AppConfiguration;
 using Pulumi.AzureNative.AppConfiguration.Inputs;
 
 using Pulumi;
-using InfraShared.Config;
+using PulumiDemo.Config;
 using System.Collections.Generic;
 
 return await Pulumi.Deployment.RunAsync(() =>

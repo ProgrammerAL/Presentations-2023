@@ -47,7 +47,7 @@ public record AzureBuilder(
             ResourceGroupName = ResourceGroup.Name,
             Sku = new AzureNative.Storage.Inputs.SkuArgs
             {
-                Name = AzureNative.Storage.SkuName.Standard_GRS,
+                Name = SkuName.Standard_GRS,
             },
             Kind = Kind.StorageV2,
             EnableHttpsTrafficOnly = true,

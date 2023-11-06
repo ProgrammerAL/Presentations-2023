@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InfraApp.Config;
+namespace PulumiDemo.Config;
 public record ExternalStacksConfig(
     string SharedStackName);
 

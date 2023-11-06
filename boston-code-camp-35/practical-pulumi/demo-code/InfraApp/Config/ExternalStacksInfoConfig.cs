@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace InfraApp.Config;
+namespace PulumiDemo.Config;
 public record ExternalStacksInfoConfig(
     Output<GetResourceGroupResult> SharedResourceGroup,
     Output<GetConfigurationStoreResult> SharedAppConfig,

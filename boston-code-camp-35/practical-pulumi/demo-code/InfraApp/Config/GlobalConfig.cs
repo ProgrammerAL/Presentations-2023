@@ -5,8 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using InfraApp.Config;
-
 using Pulumi;
 
 namespace PulumiDemo.Config;

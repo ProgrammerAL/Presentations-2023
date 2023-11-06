@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace InfraApp.Config
+namespace PulumiDemo.Config
 {
     public abstract class ConfigDtoBase<T>
     {
