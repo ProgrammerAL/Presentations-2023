@@ -1,0 +1,4 @@
+config:
+  InfraShared:azure-resource-group-name: demo-practical-pulumi-infra-shared-rg
+  InfraShared:location: eastus
+  pulumi:template: azure-csharp

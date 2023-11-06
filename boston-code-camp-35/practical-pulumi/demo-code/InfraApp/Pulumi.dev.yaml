@@ -1,5 +1,5 @@
 config:
-  InfraApp:azure-resource-group-name: demo-infra-app-rg
+  InfraApp:azure-resource-group-name: demo-practical-pulumi-infra-app-rg
   InfraApp:functions-package-path: ../ExampleFunctionApp.zip
   InfraApp:location: eastus
   InfraApp:service-config: 
