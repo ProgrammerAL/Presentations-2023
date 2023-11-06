@@ -38,6 +38,7 @@ return await Pulumi.Deployment.RunAsync(() =>
 
     return new Dictionary<string, object?>
     {
+        { "Readme", Output.Create(System.IO.File.ReadAllText("./Pulumi.README.md")) },
         { "AzureSharedResourceGroupName", resourceGroup.Name },
         { "AppConfigResourceName", appConfig.Name }
     };

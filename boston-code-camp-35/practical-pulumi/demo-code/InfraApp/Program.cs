@@ -26,6 +26,7 @@ return await Pulumi.Deployment.RunAsync(async () =>
 
     return new Dictionary<string, object?>
     {
+        { "Readme", Output.Create(System.IO.File.ReadAllText("./Pulumi.README.md")) },
         { "FunctionHttpsEndpoint", azureResources.Function.HttpsEndpoint },
     };
 });

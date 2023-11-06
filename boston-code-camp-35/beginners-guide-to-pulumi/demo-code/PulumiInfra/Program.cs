@@ -17,7 +17,7 @@ return await Pulumi.Deployment.RunAsync(async () =>
     var globalConfig = await GlobalConfig.LoadAsync(pulumiConfig);
 
     var resourceGroup = new ResourceGroup(globalConfig.AzureConfig.ResourceGroupName, new ResourceGroupArgs
-    { 
+    {
         Location = globalConfig.AzureConfig.Location
     });
 
@@ -26,6 +26,7 @@ return await Pulumi.Deployment.RunAsync(async () =>
 
     return new Dictionary<string, object?>
     {
+        { "Readme", Output.Create(System.IO.File.ReadAllText("./Pulumi.README.md")) },
         { "FunctionHttpsEndpoint", azureResources.Function.HttpsEndpoint },
     };
 });
