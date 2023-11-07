@@ -83,7 +83,6 @@ with AL Rodriguez
   - 1Password, Azure Key Vault, etc
 - Load from external source with custom code
   - The config values are not tracked
-- Secret Objects???
 
 ---
 
