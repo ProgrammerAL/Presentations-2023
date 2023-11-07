@@ -1,0 +1,25 @@
+<mxfile host="65bd71144e">
+    <diagram id="sWsAgQxdZ9bQgdvIcOeN" name="Page-1">
+        <mxGraphModel dx="1066" dy="766" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="4" value="" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="550" y="160" width="350" height="310" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="demo-code" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="690" y="130" width="80" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="resource-group" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
+                    <mxGeometry x="680" y="170" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="Storage Account" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="650" y="210" width="170" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="Azure Function" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="650" y="340" width="170" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

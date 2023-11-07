@@ -16,7 +16,6 @@ with AL Rodriguez
 
 - @ProgrammerAL
 - programmerAL.com
-- youtube.com/@ProgrammerAL
 - NOT affiliated with Pulumi
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
@@ -121,12 +120,6 @@ await Deployment.RunAsync(() =>
 
 ---
 
-#
-
-![bg contain](presentation-images/pulumi-state-flow.png)
-
----
-
 # Config
 
 - YAML Files
@@ -168,12 +161,13 @@ await Deployment.RunAsync(() =>
 - Demo App
   - Azure Function receives REST request, puts body into file stored in DigitalOcean Spaces
 
+![bg right 80%](diagrams/demo-app.svg)
+
 ---
 
 # Online Info
 
 - @ProgrammerAL
 - programmerAL.com
-- youtube.com/@ProgrammerAL
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)

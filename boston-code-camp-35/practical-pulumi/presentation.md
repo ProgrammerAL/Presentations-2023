@@ -16,7 +16,6 @@ with AL Rodriguez
 
 - @ProgrammerAL
 - programmerAL.com
-- youtube.com/@ProgrammerAL
 - NOT affiliated with Pulumi
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
@@ -30,6 +29,12 @@ with AL Rodriguez
   - Maybe you've used it already
 - Uses C# and Azure
   - But the concepts apply to other languages and clouds supported by Pulumi
+
+---
+
+# Demo Diagram
+
+![bg contain 80%](diagrams/demo-app.svg)
 
 ---
 
@@ -161,6 +166,5 @@ with AL Rodriguez
 
 - @ProgrammerAL
 - programmerAL.com
-- youtube.com/@ProgrammerAL
 
 ![bg right 80%](presentation-images/presentation_link_qrcode.png)
