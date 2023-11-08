@@ -1,5 +1,5 @@
 ---
-marp: false
+marp: true
 title: Practical Pulumi
 paginate: true
 theme: gaia
@@ -53,7 +53,7 @@ with AL Rodriguez
 - Dependencies
 - Usually values don't exist yet
   - Ex: Azure Function Endpoint
-- Get `Output<string> myEndpoint = myResource.Endpoint.Apply(endpoint => $"https://{endpoint}")`
+- `Output<string> url = func.Endpoint.Apply(x => $"https://{x}")`
   - Doesn't run the lambda until `.Endpoint` has a value
 
 ---
@@ -62,16 +62,16 @@ with AL Rodriguez
 
 ---
 
-# Config
+# Config Suggestions
 
 - Load Objects when possible
-- Avoid Exceptions when possible
-  - Load everything at once
+- Avoid Exceptions mid-run
+  - Load everything at the start
   - Load values as `required`
 
 ---
 
-# Config Inputs
+# Config Inputs?
 
 - Spoiler: Doesn't exist!
 - Edit YAML before running
@@ -83,9 +83,11 @@ with AL Rodriguez
 
 # Secrets
 
-- Pulumi Config Secrets
+- `pulumi config set mysecret myvalue --secret`
+  - Encrypted into YAML
+  - Accessible to anyone signed in with permissions
 - Load using provider
-  - 1Password, Azure Key Vault, etc
+  - 1Password, etc
 - Load from external source with custom code
   - The config values are not tracked
 
@@ -103,6 +105,13 @@ with AL Rodriguez
 
 ---
 
+# Stack References
+
+- Load Outputs from other Stacks
+- Order Matters
+
+---
+
 # Get Functions
 
 - Load cloud resources that already exist
@@ -111,18 +120,11 @@ with AL Rodriguez
 
 ---
 
-# Stack References
-
-- Load Outputs from other Stacks
-- Order Matters
-
----
-
 # Automation API
 
 - API to run Pulumi outside of console
   - Don't have to use `pulumi up`
-- Common Use CAses: CI/CD or internal portal
+- Common Use Cases: CI/CD or internal portal
 
 ---
 

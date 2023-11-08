@@ -27,14 +27,14 @@ public record ExternalStacksInfoConfig(
 
         var appConfig = GetConfigurationStore.Invoke(new GetConfigurationStoreInvokeArgs
         {
-            ResourceGroupName = resourceGroupNameOutput,
+            ResourceGroupName = resourceGroup.Apply(x => x.Name),
             ConfigStoreName = appConfigResourceNameOutput
         });
 
         var configStoreKeys = ListConfigurationStoreKeys.Invoke(new ListConfigurationStoreKeysInvokeArgs
         {
-            ResourceGroupName = resourceGroupNameOutput,
-            ConfigStoreName = appConfigResourceNameOutput,
+            ResourceGroupName = resourceGroup.Apply(x => x.Name),
+            ConfigStoreName = appConfig.Apply(x => x.Name),
         });
 
         var accessKey = configStoreKeys.Apply(x => x.Value.First());

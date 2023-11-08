@@ -1,4 +1,6 @@
 config:
   InfraShared:azure-resource-group-name: demo-practical-pulumi-infra-shared-rg
   InfraShared:location: eastus
+  InfraShared:mysecret:
+    secure: AAABAMrk6Bjj8bYf7ePy2GQdUkhwSw683VkNLOaoasjdcKbf/CZa
   pulumi:template: azure-csharp
