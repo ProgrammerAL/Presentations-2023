@@ -65,18 +65,19 @@ with AL Rodriguez
 # Config Suggestions
 
 - Load Objects when possible
-- Avoid Exceptions mid-run
+- Safely load config
   - Load everything at the start
   - Load values as `required`
+  - Avoids Exceptions mid-run
 
 ---
 
-# Config Inputs?
+# Config Runs Only from YAML
 
-- Spoiler: Doesn't exist!
-- Edit YAML before running
+- No Input Parameters
+- Can edit YAML before running
   - As part of CI/CD pipeline
-- Load from external source with custom code
+- Can load from external source with custom code
   - The config values are not tracked
 
 ---
@@ -105,9 +106,16 @@ with AL Rodriguez
 
 ---
 
+# Demo Diagram
+
+![bg contain 80%](diagrams/demo-app.svg)
+
+---
+
 # Stack References
 
 - Load Outputs from other Stacks
+  - Stack Outputs, not resources
 - Order Matters
 
 ---
@@ -128,15 +136,14 @@ with AL Rodriguez
 
 ---
 
-# Concept: Deploy App with Pulumi
+# Debate: Deploy App with Pulumi?
 
 - Can also deploy app when deploying cloud infra with Pulumi
   - Totally your choice
 - Same amount of dependencies
-- If together
-  - Can set app config values with Pulumi
-- If separate
-  - Can use Automation API to set app config values
+- Either Way - Can set app config values with Pulumi
+  - More code if separate
+- My Take: Depends on Organization
 
 ---
 
@@ -145,7 +152,7 @@ with AL Rodriguez
 - Unit Tests
   - API can be mocked in code to let unit tests run
   - Useful if your Pulumi code has custom logic
-- Automation Tests
+- Integration Tests
   - Probably more useful overall
 
 ---
