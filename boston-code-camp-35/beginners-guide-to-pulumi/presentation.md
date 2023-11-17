@@ -166,7 +166,6 @@ await Deployment.RunAsync(() =>
 
 - Pulumi Code
 - Demo App
-  - Azure Function receives REST request, puts body into file stored in DigitalOcean Spaces
 
 ![bg right 80%](diagrams/demo-app.svg)
 

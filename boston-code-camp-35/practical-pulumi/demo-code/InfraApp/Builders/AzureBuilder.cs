@@ -45,6 +45,7 @@ public record AzureBuilder(
         var storageAccount = new StorageAccount("funcsstorage", new StorageAccountArgs
         {
             ResourceGroupName = ResourceGroup.Name,
+            Location = ResourceGroup.Location,
             Sku = new AzureNative.Storage.Inputs.SkuArgs
             {
                 Name = SkuName.Standard_GRS,
@@ -91,6 +92,7 @@ public record AzureBuilder(
         var appServicePlan = new AppServicePlan("functions-app-service-plan", new AppServicePlanArgs
         {
             ResourceGroupName = ResourceGroup.Name,
+            Location = ResourceGroup.Location,
             Kind = "Linux",
             Sku = new SkuDescriptionArgs
             {
@@ -149,6 +151,7 @@ public record AzureBuilder(
         {
             Kind = "FunctionApp",
             ResourceGroupName = ResourceGroup.Name,
+            Location = ResourceGroup.Location,
             ServerFarmId = appServicePlan.Id,
             HttpsOnly = true,
             SiteConfig = functionAppSiteConfig,
