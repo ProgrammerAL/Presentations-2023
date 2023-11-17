@@ -102,7 +102,7 @@ public record AzureBuilder(
 
         var functionAppSiteConfig = new SiteConfigArgs
         {
-            LinuxFxVersion = "DOTNET-ISOLATED|7.0",
+            LinuxFxVersion = "DOTNET-ISOLATED|8.0",
             AppSettings = new[]
             {
                 new NameValuePairArgs{

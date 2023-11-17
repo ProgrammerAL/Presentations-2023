@@ -44,7 +44,14 @@ with AL Rodriguez
 
 ---
 
-# Quick Example Code
+# What else is Pulumi?
+
+- Written in your choice of language
+- Cloud Specific
+
+---
+
+# C# Example Code
 
 ```csharp
 using System.Threading.Tasks;
