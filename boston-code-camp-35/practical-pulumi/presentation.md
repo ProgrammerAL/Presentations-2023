@@ -10,6 +10,8 @@ author: Al Rodriguez
 
 with AL Rodriguez
 
+![bg right 80%](presentation-images/presentation_link_qrcode.png)
+
 ---
 
 # Me (AL)
