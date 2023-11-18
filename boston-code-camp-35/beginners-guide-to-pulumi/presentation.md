@@ -32,6 +32,10 @@ with AL Rodriguez
 
 ---
 
+![bg contain](presentation-images/padme-meme.jpg)
+
+---
+
 # What is Pulumi?
 
 - Tooling for managing cloud infrastructure
